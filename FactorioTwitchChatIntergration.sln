@@ -1,0 +1,23 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35931.197 d17.13
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "FactorioTwitchChatIntergration", "FactorioTwitchChatIntergration.pyproj", "{8021EFAF-8F05-4583-8039-3D4DD0336196}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8021EFAF-8F05-4583-8039-3D4DD0336196}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8021EFAF-8F05-4583-8039-3D4DD0336196}.Release|Any CPU.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {09DABE26-CD21-49AB-BE88-6A13B4E050BA}
+	EndGlobalSection
+EndGlobal

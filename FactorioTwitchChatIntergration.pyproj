@@ -21,6 +21,7 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Config-Example.py" />
     <Compile Include="Config.py" />
     <Compile Include="FactorioTwitchChatIntergration.py" />
   </ItemGroup>

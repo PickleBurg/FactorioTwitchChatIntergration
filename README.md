@@ -5,10 +5,9 @@ For the bot, you may want to create a separate twitch account (alternatively you
 
 Go to https://dev.twitch.tv/ and login with this twitch account. Then click Your Console->Register Your Application. Fill in the fields:
 
-name: FactorioChatBot
-OAuth Redirect URLs: https://twitchapps.com/tokengen/
-Category: Chat Bot
-Complete the reCAPTCHA and click save at the bottom. Copy the Client ID and paste it into config.cfg.
+```name: FactorioChatBot```
+```OAuth Redirect URLs: https://twitchapps.com/tokengen/```
+```Category: Chat Bot```
 
 2. Changing Factorio RCON settings to host the server locally
 If you are hosting the game locally, instead of a dedicated server then follow these instruction. Otherwise if you already have a dedicated server, look up how to enable the RCON interface with a particular port and password.

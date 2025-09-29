@@ -5,19 +5,49 @@ from twitchAPI.oauth import UserAuthenticator
 from twitchAPI.twitch import Twitch
 from Config import (APP_ID, APP_SECRETS, USER_SCOPE, TARGET_CHANNEL, 
                    RCON_HOST, RCON_PORT, RCON_PASS, DEFAULT_PLAYER,
-                   IRON_PLATE_COUNT, COPPER_PLATE_COUNT)
+                   IRON_PLATE_COUNT, COPPER_PLATE_COUNT, COMMAND_COOLDOWN)
 import asyncio
 import random
 import logging
 import html
+import time
+from collections import defaultdict
 from factorio_rcon import AsyncRCONClient
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
+# Rate limiting for commands (user_id -> last_command_time)
+last_command_time = defaultdict(float)
+
 # ------------------------------------------------------------------------------------------------------- #
 # Factorio Twitch Chat Integration 
 # ------------------------------------------------------------------------------------------------------- #
+
+def is_command_on_cooldown(user_id: str) -> bool:
+    """
+    Check if a user is on cooldown for commands.
+    
+    Args:
+        user_id: The user's ID
+        
+    Returns:
+        True if user is on cooldown, False otherwise
+    """
+    current_time = time.time()
+    last_time = last_command_time.get(user_id, 0)
+    return (current_time - last_time) < COMMAND_COOLDOWN
+
+def update_command_time(user_id: str) -> None:
+    """Update the last command time for a user."""
+    last_command_time[user_id] = time.time()
+
+def get_cooldown_remaining(user_id: str) -> int:
+    """Get remaining cooldown time in seconds for a user."""
+    current_time = time.time()
+    last_time = last_command_time.get(user_id, 0)
+    remaining = COMMAND_COOLDOWN - (current_time - last_time)
+    return max(0, int(remaining))
 
 def sanitize_message(message: str) -> str:
     """Sanitize user input to prevent injection attacks."""
@@ -116,23 +146,39 @@ async def give_items_to_player(player_name: str, item_name: str, count: int, sen
         return False
 
 async def iron_plates_command(cmd: ChatCommand) -> None:
-    """Handle the iron plates command."""
+    """Handle the iron plates command with rate limiting."""
+    user_id = cmd.user.id
     sender_name = cmd.user.display_name
+    
+    if is_command_on_cooldown(user_id):
+        remaining = get_cooldown_remaining(user_id)
+        await cmd.reply(f"Please wait {remaining} seconds before using another command!")
+        return
     
     await cmd.reply("Sending Iron plates!")
     
     success = await give_items_to_player(DEFAULT_PLAYER, "iron-plate", IRON_PLATE_COUNT, sender_name)
-    if not success:
+    if success:
+        update_command_time(user_id)
+    else:
         await cmd.reply("Sorry, there was an error sending the items!")
 
 async def copper_plates_command(cmd: ChatCommand) -> None:
-    """Handle the copper plates command."""
+    """Handle the copper plates command with rate limiting."""
+    user_id = cmd.user.id
     sender_name = cmd.user.display_name
+    
+    if is_command_on_cooldown(user_id):
+        remaining = get_cooldown_remaining(user_id)
+        await cmd.reply(f"Please wait {remaining} seconds before using another command!")
+        return
     
     await cmd.reply("Sending Copper plates!")
     
     success = await give_items_to_player(DEFAULT_PLAYER, "copper-plate", COPPER_PLATE_COUNT, sender_name)
-    if not success:
+    if success:
+        update_command_time(user_id)
+    else:
         await cmd.reply("Sorry, there was an error sending the items!")
 
 # Channel points

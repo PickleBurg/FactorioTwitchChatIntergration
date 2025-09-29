@@ -16,3 +16,6 @@ DEFAULT_PLAYER = "TerriblenessDonG"
 # Item command configuration
 IRON_PLATE_COUNT = 100
 COPPER_PLATE_COUNT = 100
+
+# Rate limiting (seconds between commands per user)
+COMMAND_COOLDOWN = 30

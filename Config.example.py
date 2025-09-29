@@ -20,3 +20,6 @@ DEFAULT_PLAYER = "YourFactorioPlayerName"  # Player who will receive items from 
 # Item Command Configuration
 IRON_PLATE_COUNT = 100  # Number of iron plates to give per command
 COPPER_PLATE_COUNT = 100  # Number of copper plates to give per command
+
+# Rate Limiting Configuration
+COMMAND_COOLDOWN = 30  # Seconds between commands per user (prevents spam)

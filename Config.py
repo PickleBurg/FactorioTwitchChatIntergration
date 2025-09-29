@@ -8,4 +8,11 @@ TARGET_CHANNEL = "" #Channel to connect to
 
 RCON_HOST = "127.0.0.1" # Factorio RCON Host
 RCON_PORT = 25575 # Factorio RCON Port
-RCONPASS = "" # Factorio RCON Password
+RCON_PASS = "" # Factorio RCON Password
+
+# Default player name for item commands (make this configurable)
+DEFAULT_PLAYER = "TerriblenessDonG"
+
+# Item command configuration
+IRON_PLATE_COUNT = 100
+COPPER_PLATE_COUNT = 100

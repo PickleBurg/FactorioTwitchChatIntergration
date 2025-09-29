@@ -1,0 +1,5 @@
+# Factorio Twitch Chat Integration Dependencies
+# Install with: pip install -r requirements.txt
+
+twitchAPI>=4.0.0
+factorio-rcon>=2.0.0
